@@ -29,7 +29,7 @@ router.get("/", async (_,res) => {
 });
 
 // Update a record by its name
-app.put("/:name", async (req, res) => {
+router.put("/:name", async (req, res) => {
     const name = req.params.name;
     const updates = req.body;
     
@@ -46,7 +46,7 @@ app.put("/:name", async (req, res) => {
 });
 
 // Delete a document by its name, it'll delete the first found match
-app.delete("/:name", async (req, res) => {
+router.delete("/:name", async (req, res) => {
     const name = req.params.name;
     
     try {
