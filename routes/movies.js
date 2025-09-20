@@ -9,7 +9,7 @@ const collection = db.collection("movies")
 router.post("/", async (req,res) => {
     const body = req.body;
     try {
-        await collection.insertOne(body)
+        await collection.insertOne(body).catch((err) => console.log("Unable to create document: ", err.message))
         res.status(201).end()
     } catch (err) {
         console.log('Unable to create document: ', err.message)
