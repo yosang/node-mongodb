@@ -10,12 +10,12 @@ content-type: application/json
 }
 
 ###
-PUT https://node-mongodb-ul6k.onrender.com/newMovie
+PUT https://node-mongodb-ul6k.onrender.com/newmovie
 Content-Type: application/json
 
 {
-    "name":"Alexander The Great"
+    "name":"Beautiful Days"
 }
 
 ###
-DELETE https://node-mongodb-ul6k.onrender.com/newMovie
+DELETE https://node-mongodb-ul6k.onrender.com/newmovie
