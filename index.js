@@ -12,5 +12,12 @@ const carsRouter = require("./routes/cars.js")
 app.use("/", indexRouter);
 app.use("/cars", carsRouter);
 
+// MongoDB
+const { dbConnect } = require('./mongodb.js');
+
 // Initiate express
-app.listen(port, () => console.log("App is listening on port: ", port))
+app.listen(port, async () => {
+    console.log("App is listening on port: ", port);
+    console.log("Connecting to database...");
+    await dbConnect()
+})
