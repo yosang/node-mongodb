@@ -8,3 +8,14 @@ content-type: application/json
 {
     "name":"newmovie"
 }
+
+###
+PUT https://node-mongodb-ul6k.onrender.com/newMovie
+Content-Type: application/json
+
+{
+    "name":"Alexander The Great"
+}
+
+###
+DELETE https://node-mongodb-ul6k.onrender.com/newMovie
