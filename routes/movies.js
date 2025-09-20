@@ -16,10 +16,11 @@ router.post("/", async (req,res) => {
         res.status(500).json({ status: 500, message: "Internal Error "})
     }
 });
-// Retrieve documents and limit by 5
+
+// Retrieve documents and limit and sorted by last 5
 router.get("/", async (_,res) => {
     try {
-        const documents = await collection.find().limit(5).toArray();
+        const documents = await collection.find().sort({_id: -1}).limit(5).toArray();
         res.status(200).json({status:200, message:documents})
     } catch (err) {
         console.log('Unable to retrieve documents: ', err.message)
@@ -27,4 +28,36 @@ router.get("/", async (_,res) => {
     }
 });
 
+// Update a record by its name
+app.put("/:name", async (req, res) => {
+    const name = req.params.name;
+    const updates = req.body;
+    
+    try {
+        const result = await collection.replaceOne({ name }, updates);
+        
+        if (result.matchedCount === 0) return res.status(404).json({ status: 404, error: 'Document not found' });
+        
+        res.status(200).json({ status: 200, message: 'Document updated successfully' });
+    } catch (err) {
+        console.log("Unable to update document: ", err.message);
+        res.status(500).json({ status: 500, message: "Internal Error "})
+    }
+});
+
+// Delete a document by its name, it'll delete the first found match
+app.delete("/:name", async (req, res) => {
+    const name = req.params.name;
+    
+    try {
+        const result = await collection.deleteOne({ name });
+        
+        if (result.deletedCount === 0) return res.status(404).json({ status: 404, error: 'Document not found' });
+        
+        res.status(200).json({ status: 200, message: 'Document deleted successfully' });
+    } catch (err) {
+        console.log("Unable to delete document: ", err.message);
+        res.status(500).json({ status: 500, message: "Internal Error "})
+  }
+});
 module.exports = router;
