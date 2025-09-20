@@ -6,7 +6,7 @@ const db = client.db("sample_mflix")
 const collection = db.collection("movies")
 
 // Create a new document
-router.post("/", async (_,res) => {
+router.post("/", async (req,res) => {
     const body = req.body;
     try {
         console.log(body)
