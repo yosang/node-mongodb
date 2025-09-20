@@ -1,6 +1,11 @@
+###
+
+GET https://node-mongodb-ul6k.onrender.com/
+
+###
 POST https://node-mongodb-ul6k.onrender.com/
 content-type: application/json
 
 {
-    "name":"myname"
+    "name":"newmovie"
 }

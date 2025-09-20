@@ -9,9 +9,8 @@ const collection = db.collection("movies")
 router.post("/", async (req,res) => {
     const body = req.body;
     try {
-        console.log(body)
-        // await collection.insertOne(body)
-        // res.status(201).end()
+        await collection.insertOne(body)
+        res.status(201).end()
     } catch (err) {
         console.log('Unable to create document: ', err.message)
         res.status(500).json({ status: 500, message: "Internal Error "})
