@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { ObjectId } = require('mongodb');
 
 // MongoDB global variables
 const { client } = require('../mongodb')
@@ -28,13 +29,13 @@ router.get("/", async (_,res) => {
     }
 });
 
-// Update a record by its name
-router.put("/:name", async (req, res) => {
-    const name = req.params.name;
-    const updates = req.body;
+// Update a record
+router.put("/:id", async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
     
     try {
-        const result = await collection.replaceOne({ name }, updates);
+        const result = await collection.replaceOne({ _id: new ObjectId(id) }, body); // Replaces the entire document, use updateOne for partial update
         
         if (result.matchedCount === 0) return res.status(404).json({ status: 404, error: 'Document not found' });
         
@@ -45,12 +46,12 @@ router.put("/:name", async (req, res) => {
     }
 });
 
-// Delete a document by its name, it'll delete the first found match
-router.delete("/:name", async (req, res) => {
-    const name = req.params.name;
+// Delete a document
+router.delete("/:id", async (req, res) => {
+    const id = req.params.id;
     
     try {
-        const result = await collection.deleteOne({ name });
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
         
         if (result.deletedCount === 0) return res.status(404).json({ status: 404, error: 'Document not found' });
         
