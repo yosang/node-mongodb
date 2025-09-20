@@ -7,10 +7,8 @@ const app = express()
 app.use(express.json()) // Parses incoming JSON
 
 // Routes
-const indexRouter = require("./routes/index.js")
-const carsRouter = require("./routes/cars.js")
-app.use("/", indexRouter);
-app.use("/cars", carsRouter);
+const moviesRouter = require("./routes/movies.js")
+app.use("/", moviesRouter);
 
 // MongoDB
 const { dbConnect } = require('./mongodb.js');
