@@ -2,13 +2,13 @@ require("dotenv").config();
 
 // Configure and setup express
 const express = require('express');
-const port = process.env.API_PORT | 5000;
+const port = process.env.API_PORT || 3000;
 const app = express()
 app.use(express.json()) // Parses incoming JSON
 
 // Routes
-const moviesRouter = require("./routes/movies.js")
-app.use("/", moviesRouter);
+const dbRouter = require("./routes/db.js")
+app.use("/", dbRouter);
 
 // MongoDB
 const { dbConnect } = require('./mongodb.js');

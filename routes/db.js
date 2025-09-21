@@ -3,14 +3,15 @@ const { ObjectId } = require('mongodb');
 
 // MongoDB global variables
 const { client } = require('../mongodb')
-const db = client.db("sample_mflix")
-const collection = db.collection("movies")
+const db = client.db(process.env.DB_NAME)
+const collection = db.collection(process.env.DB_COLL)
 
 // Create a new document
 router.post("/", async (req,res) => {
     const body = req.body;
     try {
         await collection.insertOne(body);
+                
         res.status(201).end()
     } catch (err) {
         console.log('Unable to create document: ', err.message)
@@ -35,7 +36,7 @@ router.put("/:id", async (req, res) => {
     const body = req.body;
     
     try {
-        const result = await collection.replaceOne({ _id: new ObjectId(id) }, body); // Replaces the entire document, use updateOne for partial update
+        const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: body });
         
         if (result.matchedCount === 0) return res.status(404).json({ status: 404, error: 'Document not found' });
         
